@@ -4,5 +4,6 @@
 <url> <loc>https://opencti-platform.github.io/docs/installation/installation-docker</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://opencti-platform.github.io/docs/installation/installation-docker" /> </url>
 <url> <loc>https://opencti-platform.github.io/docs/installation/installation-manual</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://opencti-platform.github.io/docs/installation/installation-manual" /> </url>
 <url> <loc>https://opencti-platform.github.io/docs/introduction</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://opencti-platform.github.io/docs/introduction" /> </url>
+<url> <loc>https://opencti-platform.github.io/docs/usage/usage-create-reports</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://opencti-platform.github.io/docs/usage/usage-create-reports" /> </url>
 <url> <loc>https://opencti-platform.github.io/docs/usage/usage-introduction</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://opencti-platform.github.io/docs/usage/usage-introduction" /> </url>
 </urlset>
