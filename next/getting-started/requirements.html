@@ -57,81 +57,96 @@
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Infrastructure requirements</h1></header><article><div><span><p>Since OpenCTI has some dependencies, you can find below the minimum configuration and amount of resources needed to launch the OpenCTI platform.</p>
 <h2><a class="anchor" aria-hidden="true" id="total-requirements"></a><a href="#total-requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Total requirements</h2>
 <p>The minimal hardware requirements for all components of the platforms including the databases are:</p>
-<blockquote>
-<ul>
-<li>CPU: 6</li>
-<li>RAM: 16G</li>
-<li>Disk: SSD (recommanded) / Normal</li>
-<li>Space: Depending of your content (&gt; 32G)</li>
-</ul>
-</blockquote>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>6 cores</td><td>16GB</td><td>SSD (recommanded) / Normal</td><td>Depending of your content (&gt; 32GB)</td></tr>
+</tbody>
+</table>
 <h2><a class="anchor" aria-hidden="true" id="databases"></a><a href="#databases" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Databases</h2>
 <h3><a class="anchor" aria-hidden="true" id="grakn"></a><a href="#grakn" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Grakn</h3>
 <p>Grakn is composed of 2 JAVA processes, one for Grakn itself and the other one for Cassandra. Each process requires a minimum of 4GB of memory. So Grakn needs:</p>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>2 cores</td><td>8GB</td><td>SSD</td><td>Depending of your content (&gt; 16GB)</td></tr>
+</tbody>
+</table>
 <blockquote>
-<ul>
-<li>CPU: 2</li>
-<li>RAM: 8G</li>
-<li>Disk: SSD</li>
-</ul>
+<p>In order to setup the JAVA memory allocation, you can use the environment variable <code>SERVER_JAVAOPTS</code> and <code>STORAGE_JAVAOPTS</code>. You can find more information in the <a href="https://dev.grakn.ai/docs">official Grakn documentation</a>.</p>
 </blockquote>
-<p>In order to setup the JAVA memory allocation, you can use the environment variable <code>SERVER_JAVAOPTS</code> and <code>STORAGE_JAVAOPTS</code>.  You can find more information in the <a href="https://dev.grakn.ai/docs">official Grakn documentation</a>.</p>
 <h3><a class="anchor" aria-hidden="true" id="elasticsearch"></a><a href="#elasticsearch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ElasticSearch</h3>
 <p>ElasticSearch is also a JAVA process that needs a minimal amount of memory and CPUs.</p>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>2 cores</td><td>1GB</td><td>Normal</td><td>Depending of your content (&gt; 16GB)</td></tr>
+</tbody>
+</table>
 <blockquote>
-<ul>
-<li>CPU: 2</li>
-<li>RAM: 1G</li>
-<li>Disk: Normal</li>
-</ul>
-</blockquote>
 <p>In order to setup the JAVA memory allocation, you can use the environment variable <code>ES_JAVA_OPTS</code>. You can find more information in the <a href="ttps://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html">official ElasticSearch documenation</a>.</p>
+</blockquote>
 <h3><a class="anchor" aria-hidden="true" id="redis"></a><a href="#redis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Redis</h3>
 <p>Redis has a very small footprint and only needs a tiny configuration:</p>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>1 core</td><td>128MB</td><td>Normal</td><td>128MB</td></tr>
+</tbody>
+</table>
 <blockquote>
-<ul>
-<li>CPU: 1</li>
-<li>RAM: 128M</li>
-<li>Disk: Normal</li>
-</ul>
-</blockquote>
 <p>You can use the option <code>--maxmemory</code> to limit the usage. You can find more information in the <a href="https://hub.docker.com/r/bitnami/redis/">Redis docker hub</a>.</p>
+</blockquote>
 <h3><a class="anchor" aria-hidden="true" id="rabbitmq"></a><a href="#rabbitmq" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>RabbitMQ</h3>
 <p>RabbitMQ has a very small footprint until and can store messages directly on the disk if it does not have enough memory.</p>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>1 core</td><td>128MB</td><td>Normal</td><td>128MB</td></tr>
+</tbody>
+</table>
 <blockquote>
-<ul>
-<li>CPU: 1</li>
-<li>RAM: 128M</li>
-<li>Disk: Normal</li>
-</ul>
-</blockquote>
 <p>The RabbitMQ memory configuration can be find in the <a href="https://www.rabbitmq.com/memory.html">RabbitMQ official documentation</a>.</p>
+</blockquote>
 <h3><a class="anchor" aria-hidden="true" id="total"></a><a href="#total" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Total</h3>
 <p>The requirements for the databases infrastructure of OpenCTI are:</p>
-<blockquote>
-<ul>
-<li>CPU: 4</li>
-<li>RAM: 12G</li>
-<li>Disk: SSD (recommanded) / Normal</li>
-</ul>
-</blockquote>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>4 cores</td><td>12GB</td><td>SSD (recommanded) / Normal</td><td>Depending of your content (&gt; 32GB)</td></tr>
+</tbody>
+</table>
 <h2><a class="anchor" aria-hidden="true" id="application"></a><a href="#application" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Application</h2>
 <h3><a class="anchor" aria-hidden="true" id="platform"></a><a href="#platform" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Platform</h3>
 <p>OpenCTI platform is based on a NodeJS runtime, with a memory limit of <strong>512MB by default</strong>.</p>
-<blockquote>
-<ul>
-<li>CPU: 1</li>
-<li>RAM: 512M</li>
-<li>Disk: Normal</li>
-</ul>
-</blockquote>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>1 core</td><td>512MB</td><td>Normal</td><td>256MB</td></tr>
+</tbody>
+</table>
 <h3><a class="anchor" aria-hidden="true" id="workers-and-connectors"></a><a href="#workers-and-connectors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Workers and connectors</h3>
-<p>OpenCTI workers and connectors are Python processes with a very small footprint.</p>
-<blockquote>
-<ul>
-<li>CPU: 1</li>
-<li>RAM: 128M</li>
-<li>DIsk: Normal</li>
-</ul>
-</blockquote>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 7/22/2019 by Samuel Hassine</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/getting-started/architecture"><span class="arrow-prev">← </span><span>Architecture</span></a><a class="docs-next button" href="/docs/next/installation/docker"><span>Using Docker</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#total-requirements">Total requirements</a></li><li><a href="#databases">Databases</a><ul class="toc-headings"><li><a href="#grakn">Grakn</a></li><li><a href="#elasticsearch">ElasticSearch</a></li><li><a href="#redis">Redis</a></li><li><a href="#rabbitmq">RabbitMQ</a></li><li><a href="#total">Total</a></li></ul></li><li><a href="#application">Application</a><ul class="toc-headings"><li><a href="#platform">Platform</a></li><li><a href="#workers-and-connectors">Workers and connectors</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs/" class="nav-home"><img src="/docs/img/logo.png" alt="OpenCTI documentation" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/installation/docker">Install using Docker</a><a href="/docs/usage/overview">Usage introduction</a><a href="/docs/development/installation">Development environment</a></div><div><h5>Community</h5><a href="https://demo.opencti.io">Demonstration</a><a href="http://stackoverflow.com/questions/tagged/OpenCTI" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://slack.luatix.org/">Slack</a><a href="https://twitter.com/LuatixHQ" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.luatix.org/en/blog/">Blog</a><a href="https://github.com/OpenCTI-Platform">GitHub</a><a class="github-button" href="https://github.com/OpenCTI-Platform/opencti" data-icon="octicon-star" data-count-href="/OpenCTI-Platform/opencti/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 OpenCTI</section></footer></div></body></html>
+<p>OpenCTI workers and connectors are Python processes with a very small footprint. For each connector, requirements are:</p>
+<table>
+<thead>
+<tr><th>CPU</th><th>RAM</th><th>Disk type</th><th>Disk space</th></tr>
+</thead>
+<tbody>
+<tr><td>1 core</td><td>128MB</td><td>Normal</td><td>128MB</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 8/4/2019 by Samuel Hassine</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/getting-started/architecture"><span class="arrow-prev">← </span><span>Architecture</span></a><a class="docs-next button" href="/docs/next/installation/docker"><span>Using Docker</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#total-requirements">Total requirements</a></li><li><a href="#databases">Databases</a><ul class="toc-headings"><li><a href="#grakn">Grakn</a></li><li><a href="#elasticsearch">ElasticSearch</a></li><li><a href="#redis">Redis</a></li><li><a href="#rabbitmq">RabbitMQ</a></li><li><a href="#total">Total</a></li></ul></li><li><a href="#application">Application</a><ul class="toc-headings"><li><a href="#platform">Platform</a></li><li><a href="#workers-and-connectors">Workers and connectors</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs/" class="nav-home"><img src="/docs/img/logo.png" alt="OpenCTI documentation" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/installation/docker">Install using Docker</a><a href="/docs/usage/overview">Usage introduction</a><a href="/docs/development/installation">Development environment</a></div><div><h5>Community</h5><a href="https://demo.opencti.io">Demonstration</a><a href="http://stackoverflow.com/questions/tagged/OpenCTI" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://slack.luatix.org/">Slack</a><a href="https://twitter.com/LuatixHQ" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.luatix.org/en/blog/">Blog</a><a href="https://github.com/OpenCTI-Platform">GitHub</a><a class="github-button" href="https://github.com/OpenCTI-Platform/opencti" data-icon="octicon-star" data-count-href="/OpenCTI-Platform/opencti/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 OpenCTI</section></footer></div></body></html>
