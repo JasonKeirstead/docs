@@ -55,35 +55,65 @@
               }
             });
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Connectors activation</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
-<p>Connectors are standalone processes that are independant of the rest of the platform. They are using RabbitMQ to push data to OpenCTI, through a dedicated queue for each instance of connector. Depending on your deployment, you can enable connectors by using the connectors Docker images or launch them manually.</p>
+<p>Connectors are standalone processes that are independant of the rest of the platform. They are using RabbitMQ to consume or push data to OpenCTI, through a dedicated queue for each instance of connector. Depending on your deployment, you can enable connectors by using the connectors Docker images or launch them manually.</p>
 <h2><a class="anchor" aria-hidden="true" id="connector-configurations"></a><a href="#connector-configurations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connector configurations</h2>
-<p>All connectors have 2 mandatory configuration parameters, the <code>name</code> and the <code>confidence_level</code>. The <code>name</code> is the name of the instance of the connector. For instance, for the MISP connector, you can launch as many MISP connectors as you need, if you need to pull data from multiple MISP instances.</p>
+<p>All connectors have to be able to access to the OpenCTI API. To allow this connection, they have 2 mandatory configuration parameters, the <code>OPENCTI_URL</code> and the <code>OPENCTI_TOKEN</code>. In addition of these 2 parameters, connectors have 5 other mandatory parameters that need to be set in order to get them work.</p>
+<pre><code class="hljs">- <span class="hljs-attribute">CONNECTOR_ID</span>=ChangeMe
+- <span class="hljs-attribute">CONNECTOR_TYPE</span>=INTERNAL_EXPORT_FILE
+- <span class="hljs-attribute">CONNECTOR_NAME</span>=ExportFileStix2
+- <span class="hljs-attribute">CONNECTOR_SCOPE</span>=application/json
+- <span class="hljs-attribute">CONNECTOR_CONFIDENCE_LEVEL</span>=3
+- <span class="hljs-attribute">CONNECTOR_LOG_LEVEL</span>=info
+</code></pre>
 <blockquote>
-<p>The <code>name</code> of each instance of connector must be unique.</p>
+<p>The <code>CONNECTOR_ID</code> must be a valid UUIDv4</p>
 </blockquote>
 <blockquote>
-<p>The <code>confidence_level</code> of the connector will be used to set the <code>confidence_level</code> of the relationships created by the connector. If a connector needs to create a relationship that already exists, it will check the current <code>confidence_level</code> and if it is lower than its own, it will update the relationship with the new information. If it is higher, it will do nothing and keep the existing relationship.</p>
+<p>The <code>CONNECTOR_TYPE</code> must be a valid type, the possible types are:</p>
+<ul>
+<li>EXTERNAL_IMPORT: from remote sources to OpenCTI stix2</li>
+<li>INTERNAL_IMPORT_FILE: from OpenCTI file system to OpenCTI stix2</li>
+<li>INTERNAL_ENRICHMENT: from OpenCTI stix2 to OpenCTI stix2</li>
+<li>INTERNAL_EXPORT_FILE: from OpenCTI stix2 to OpenCTI file system</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>The <code>CONNECTOR_NAME</code> is an arbitrary name</p>
+</blockquote>
+<blockquote>
+<p>The <code>CONNECTOR_SCOPE</code> is the scope handled by the connector:</p>
+<ul>
+<li>EXTERNAL_IMPORT: entity types that have to be imported by the connectors, if the connector provide more, they will be ignored</li>
+<li>INTERNAL_IMPORT_FILE: files mime types to support (application/json, ...)</li>
+<li>INTERNAL_ENRICHMENT: entity types to support (Report, Hash, ...)</li>
+<li>INTERNAL_EXPORT_FILE: files mime types to generate (application/pdf, ...)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>The <code>CONNECTOR_CONFIDENCE_LEVEL</code> of the connector will be used to set the <code>CONNECTOR_CONFIDENCE_LEVEL</code> of the relationships created by the connector. If a connector needs to create a relationship that already exists, it will check the current <code>CONNECTOR_CONFIDENCE_LEVEL</code> and if it is lower than its own, it will update the relationship with the new information. If it is higher, it will do nothing and keep the existing relationship.</p>
 </blockquote>
 <h2><a class="anchor" aria-hidden="true" id="docker-activation"></a><a href="#docker-activation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Docker activation</h2>
 <p>You can either directly run the Docker image of connectors or add them to your current <code>docker-compose.yml</code> file.</p>
 <h3><a class="anchor" aria-hidden="true" id="add-a-connector-to-your-deployment"></a><a href="#add-a-connector-to-your-deployment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add a connector to your deployment</h3>
 <p>For instance, to enable the MISP connector, you can add a new service to your <code>docker-compose.yml</code> file:</p>
 <pre><code class="hljs">  connector-misp:
-    image: opencti/connector-misp:{RELEASE_VERSION}
+    image: opencti/connector-misp:2.0.0
     environment:
-      - <span class="hljs-attribute">RABBITMQ_HOSTNAME</span>=localhost
-      - <span class="hljs-attribute">RABBITMQ_PORT</span>=5672 
-      - <span class="hljs-attribute">RABBITMQ_USERNAME</span>=guest
-      - <span class="hljs-attribute">RABBITMQ_PASSWORD</span>=guest
-      - <span class="hljs-attribute">MISP_NAME</span>=MISP\ Circle
-      - <span class="hljs-attribute">MISP_CONFIDENCE_LEVEL</span>=3
-      - <span class="hljs-attribute">MISP_URL</span>=http://localhost
-      - <span class="hljs-attribute">MISP_KEY</span>=ChangeMe
-      - <span class="hljs-attribute">MISP_TAG</span>=OpenCTI:\ Import
-      - <span class="hljs-attribute">MISP_UNTAG_EVENT</span>=<span class="hljs-literal">true</span>
-      - <span class="hljs-attribute">MISP_IMPORTED_TAG</span>=OpenCTI:\ Imported
+      - <span class="hljs-attribute">OPENCTI_URL</span>=http://localhost
+      - <span class="hljs-attribute">OPENCTI_TOKEN</span>=ChangeMe
+      - <span class="hljs-attribute">CONNECTOR_ID</span>=ChangeMe
+      - <span class="hljs-attribute">CONNECTOR_TYPE</span>=EXTERNAL_IMPORT
+      - <span class="hljs-attribute">CONNECTOR_NAME</span>=MISP
+      - <span class="hljs-attribute">CONNECTOR_SCOPE</span>=misp
+      - <span class="hljs-attribute">CONNECTOR_CONFIDENCE_LEVEL</span>=3
+      - <span class="hljs-attribute">CONNECTOR_LOG_LEVEL</span>=info
+      - <span class="hljs-attribute">MISP_URL</span>=http://localhost # Required
+      - <span class="hljs-attribute">MISP_KEY</span>=ChangeMe # Required
+      - <span class="hljs-attribute">MISP_TAG</span>=OpenCTI:\ Import # Optional, tags of events <span class="hljs-keyword">to</span> be ingested (<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> provided, import all!)
+      - <span class="hljs-attribute">MISP_UNTAG_EVENT</span>=<span class="hljs-literal">true</span> # Optional, <span class="hljs-builtin-name">remove</span> the tag after import
+      - <span class="hljs-attribute">MISP_IMPORTED_TAG</span>=OpenCTI:\ Imported # Required, tag event after import
+      - <span class="hljs-attribute">MISP_FILTER_ON_IMPORTED_TAG</span>=<span class="hljs-literal">true</span> # Required, use imported tag <span class="hljs-keyword">to</span> know which events <span class="hljs-keyword">to</span> <span class="hljs-keyword">not</span> ingest
       - <span class="hljs-attribute">MISP_INTERVAL</span>=1 # Minutes
-      - <span class="hljs-attribute">MISP_LOG_LEVEL</span>=info
     restart: always
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="launch-a-standalone-connector"></a><a href="#launch-a-standalone-connector" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Launch a standalone connector</h3>
@@ -114,4 +144,4 @@ $ cp config<span class="hljs-selector-class">.yml</span><span class="hljs-select
 <h2><a class="anchor" aria-hidden="true" id="connectors-status"></a><a href="#connectors-status" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connectors status</h2>
 <p>The connector status can be displayed in the dedicated section. You will be able to see the statistics of the RabbitMQ queue of the connector:</p>
 <p><img src="/docs/assets/installation/connectors_status.png" alt="Connectors status" title="Connectors status"></p>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 7/30/2019 by Julien Richard</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/installation/manual"><span class="arrow-prev">← </span><span>Manual deployment</span></a><a class="docs-next button" href="/docs/next/development/installation"><span>Development environment</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#connector-configurations">Connector configurations</a></li><li><a href="#docker-activation">Docker activation</a><ul class="toc-headings"><li><a href="#add-a-connector-to-your-deployment">Add a connector to your deployment</a></li><li><a href="#launch-a-standalone-connector">Launch a standalone connector</a></li></ul></li><li><a href="#manual-activation">Manual activation</a></li><li><a href="#connectors-status">Connectors status</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs/" class="nav-home"><img src="/docs/img/logo.png" alt="OpenCTI documentation" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/installation/docker">Install using Docker</a><a href="/docs/usage/overview">Usage introduction</a><a href="/docs/development/installation">Development environment</a></div><div><h5>Community</h5><a href="https://demo.opencti.io">Demonstration</a><a href="http://stackoverflow.com/questions/tagged/OpenCTI" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://slack.luatix.org/">Slack</a><a href="https://twitter.com/LuatixHQ" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.luatix.org/en/blog/">Blog</a><a href="https://github.com/OpenCTI-Platform">GitHub</a><a class="github-button" href="https://github.com/OpenCTI-Platform/opencti" data-icon="octicon-star" data-count-href="/OpenCTI-Platform/opencti/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 OpenCTI</section></footer></div></body></html>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 10/24/2019 by Samuel Hassine</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/installation/manual"><span class="arrow-prev">← </span><span>Manual deployment</span></a><a class="docs-next button" href="/docs/next/development/installation"><span>Development environment</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#connector-configurations">Connector configurations</a></li><li><a href="#docker-activation">Docker activation</a><ul class="toc-headings"><li><a href="#add-a-connector-to-your-deployment">Add a connector to your deployment</a></li><li><a href="#launch-a-standalone-connector">Launch a standalone connector</a></li></ul></li><li><a href="#manual-activation">Manual activation</a></li><li><a href="#connectors-status">Connectors status</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs/" class="nav-home"><img src="/docs/img/logo.png" alt="OpenCTI documentation" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/installation/docker">Install using Docker</a><a href="/docs/usage/overview">Usage introduction</a><a href="/docs/development/installation">Development environment</a></div><div><h5>Community</h5><a href="https://demo.opencti.io">Demonstration</a><a href="http://stackoverflow.com/questions/tagged/OpenCTI" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://slack.luatix.org/">Slack</a><a href="https://twitter.com/LuatixHQ" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.luatix.org/en/blog/">Blog</a><a href="https://github.com/OpenCTI-Platform">GitHub</a><a class="github-button" href="https://github.com/OpenCTI-Platform/opencti" data-icon="octicon-star" data-count-href="/OpenCTI-Platform/opencti/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 OpenCTI</section></footer></div></body></html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Relations between things · OpenCTI documentation</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Introduction"/><meta name="docsearch:version" content="1.1.2"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Relations between things · OpenCTI documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="https://opencti-platform.github.io/docs/"/><meta property="og:description" content="## Introduction"/><meta property="og:image" content="https://opencti-platform.github.io/docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://opencti-platform.github.io/docs/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs/img/logo.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs/css/prism.css"/><link rel="stylesheet" href="/docs/css/main.css"/><script src="/docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs/"><img class="logo" src="/docs/img/logo_header.png" alt="OpenCTI documentation"/><h2 class="headerTitleWithLogo">OpenCTI documentation</h2></a><a href="/docs/versions"><h3>1.1.2</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/1.1.2/getting-started/introduction" target="_self">Documentation</a></li><li class=""><a href="https://slack.luatix.org" target="_self">Help</a></li><li class=""><a href="https://www.github.com/OpenCTI-Platform/opencti" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Reference</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/1.1.2/getting-started/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/getting-started/architecture">Architecture</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/getting-started/requirements">Infrastructure requirements</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Installation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/1.1.2/installation/docker">Using Docker</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/installation/manual">Manual deployment</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/installation/connectors">Enable connectors</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/development/installation">Development environment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/1.1.2/usage/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/usage/model">Data model</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/usage/reports-create">Create reports</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/usage/report-knowledge">Add knowledge to a report</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/1.1.2/reference/relations">Relations between things</a></li><li class="navListItem"><a class="navItem" href="/docs/1.1.2/reference/inferences">Inferred relations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Development</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/1.1.2/development/connectors">Connectors</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Relations between things</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<blockquote>
+<p>On the OpenCTI platform, <strong>the direction of the relations between entities matters a lot</strong>.</p>
+</blockquote>
+<p>Either you add knowledge manually to a report or creating new knowledge programmatically, you have to be aware of the entities-relations model in order to use the platform. This model is based on <a href="https://oasis-open.github.io/cti-documentation/stix/intro">STIX2</a> so you are already familiar with it, you should already be aware of most of the following information.</p>
+<p><img src="/docs/assets/reference/report_relation_direction1.png" alt="Report relation direction 1" title="Report relation direction 1"></p>
+<p><img src="/docs/assets/reference/report_relation_direction2.png" alt="Report relation direction 2" title="Report relation direction 2"></p>
+<h2><a class="anchor" aria-hidden="true" id="possible-relations-from-an-entity"></a><a href="#possible-relations-from-an-entity" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Possible relations from an entity</h2>
+<h3><a class="anchor" aria-hidden="true" id="threat-actor"></a><a href="#threat-actor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Threat Actor</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Threat Actor (<em>user</em>)</td><td><strong>uses</strong></td><td>Malware (<em>usage</em>)</td></tr>
+<tr><td>Threat Actor (<em>user</em>)</td><td><strong>uses</strong></td><td>Tool (<em>usage</em>)</td></tr>
+<tr><td>Threat Actor (<em>user</em>)</td><td><strong>uses</strong></td><td>Attack Pattern (<em>usage</em>)</td></tr>
+<tr><td>Threat Actor (<em>source</em>)</td><td><strong>targets</strong></td><td>Vulnerability (<em>target</em>)</td></tr>
+<tr><td>Threat Actor (<em>source</em>)</td><td><strong>targets</strong></td><td>Sector (<em>target</em>)</td></tr>
+<tr><td>Threat Actor (<em>source</em>)</td><td><strong>targets</strong></td><td>Region / Country / City (<em>target</em>)</td></tr>
+<tr><td>Threat Actor (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="intrusion-set"></a><a href="#intrusion-set" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Intrusion Set</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Intrusion Set (<em>attribution</em>)</td><td><strong>attributed-to</strong></td><td>Threat Actor (<em>origin</em>)</td></tr>
+<tr><td>Intrusion Set (<em>user</em>)</td><td><strong>uses</strong></td><td>Malware (<em>usage</em>)</td></tr>
+<tr><td>Intrusion Set (<em>user</em>)</td><td><strong>uses</strong></td><td>Tool (<em>usage</em>)</td></tr>
+<tr><td>Intrusion Set (<em>user</em>)</td><td><strong>uses</strong></td><td>Attack Pattern (<em>usage</em>)</td></tr>
+<tr><td>Intrusion Set (<em>source</em>)</td><td><strong>targets</strong></td><td>Vulnerability (<em>target</em>)</td></tr>
+<tr><td>Intrusion Set (<em>source</em>)</td><td><strong>targets</strong></td><td>Sector (<em>target</em>)</td></tr>
+<tr><td>Intrusion Set (<em>source</em>)</td><td><strong>targets</strong></td><td>Region / Country / City (<em>target</em>)</td></tr>
+<tr><td>Intrusion Set (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="campaign"></a><a href="#campaign" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Campaign</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Campaign (<em>attribution</em>)</td><td><strong>attributed-to</strong></td><td>Threat Actor (<em>origin</em>)</td></tr>
+<tr><td>Campaign (<em>attribution</em>)</td><td><strong>attributed-to</strong></td><td>Intrusion Set (<em>origin</em>)</td></tr>
+<tr><td>Campaign (<em>user</em>)</td><td><strong>uses</strong></td><td>Malware (<em>usage</em>)</td></tr>
+<tr><td>Campaign (<em>user</em>)</td><td><strong>uses</strong></td><td>Tool (<em>usage</em>)</td></tr>
+<tr><td>Campaign (<em>user</em>)</td><td><strong>uses</strong></td><td>Attack Pattern (<em>usage</em>)</td></tr>
+<tr><td>Campaign (<em>source</em>)</td><td><strong>targets</strong></td><td>Vulnerability (<em>target</em>)</td></tr>
+<tr><td>Campaign (<em>source</em>)</td><td><strong>targets</strong></td><td>Sector (<em>target</em>)</td></tr>
+<tr><td>Campaign (<em>source</em>)</td><td><strong>targets</strong></td><td>Region / Country / City (<em>target</em>)</td></tr>
+<tr><td>Campaign (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="incident"></a><a href="#incident" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Incident</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Incident (<em>attribution</em>)</td><td><strong>attributed-to</strong></td><td>Threat Actor (<em>origin</em>)</td></tr>
+<tr><td>Incident (<em>attribution</em>)</td><td><strong>attributed-to</strong></td><td>Intrusion Set (<em>origin</em>)</td></tr>
+<tr><td>Incident (<em>attribution</em>)</td><td><strong>attributed-to</strong></td><td>Campaign (<em>origin</em>)</td></tr>
+<tr><td>Incident (<em>user</em>)</td><td><strong>uses</strong></td><td>Malware (<em>usage</em>)</td></tr>
+<tr><td>Incident (<em>user</em>)</td><td><strong>uses</strong></td><td>Tool (<em>usage</em>)</td></tr>
+<tr><td>Incident (<em>user</em>)</td><td><strong>uses</strong></td><td>Attack Pattern (<em>usage</em>)</td></tr>
+<tr><td>Incident (<em>source</em>)</td><td><strong>targets</strong></td><td>Vulnerability (<em>target</em>)</td></tr>
+<tr><td>Incident (<em>source</em>)</td><td><strong>targets</strong></td><td>Sector (<em>target</em>)</td></tr>
+<tr><td>Incident (<em>source</em>)</td><td><strong>targets</strong></td><td>Region / Country / City (<em>target</em>)</td></tr>
+<tr><td>Incident (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="malware"></a><a href="#malware" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Malware</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Malware (<em>original</em>)</td><td><strong>variant-of</strong></td><td>Malware (<em>variation</em>)</td></tr>
+<tr><td>Malware (<em>user</em>)</td><td><strong>uses</strong></td><td>Tool (<em>usage</em>)</td></tr>
+<tr><td>Malware (<em>user</em>)</td><td><strong>uses</strong></td><td>Attack Pattern (<em>usage</em>)</td></tr>
+<tr><td>Malware (<em>source</em>)</td><td><strong>targets</strong></td><td>Vulnerability (<em>target</em>)</td></tr>
+<tr><td>Malware (<em>source</em>)</td><td><strong>targets</strong></td><td>Sector (<em>target</em>)</td></tr>
+<tr><td>Malware (<em>source</em>)</td><td><strong>targets</strong></td><td>Region / Country / City (<em>target</em>)</td></tr>
+<tr><td>Malware (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="tool"></a><a href="#tool" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tool</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Tool (<em>user</em>)</td><td><strong>uses</strong></td><td>Attack Pattern (<em>usage</em>)</td></tr>
+<tr><td>Tool (<em>source</em>)</td><td><strong>targets</strong></td><td>Vulnerability (<em>target</em>)</td></tr>
+<tr><td>Tool (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="vulnerability"></a><a href="#vulnerability" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Vulnerability</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Vulnerability (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="sector"></a><a href="#sector" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sector</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Sector (<em>part_of</em>)</td><td><strong>gathering</strong></td><td>Sector (<em>gather</em>)</td></tr>
+<tr><td>Sector (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="organization"></a><a href="#organization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Organization</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Organization (<em>part_of</em>)</td><td><strong>gathering</strong></td><td>Sector (<em>gather</em>)</td></tr>
+<tr><td>Organization (<em>localized</em>)</td><td><strong>localization</strong></td><td>Region / Country / City (<em>location</em>)</td></tr>
+<tr><td>Organization (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="person"></a><a href="#person" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Person</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Person (<em>part_of</em>)</td><td><strong>gathering</strong></td><td>Organization (<em>gather</em>)</td></tr>
+<tr><td>Person (<em>localized</em>)</td><td><strong>localization</strong></td><td>Region / Country / City (<em>location</em>)</td></tr>
+<tr><td>Person (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="region"></a><a href="#region" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Region</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Region (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="country"></a><a href="#country" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Country</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>Country (<em>localized</em>)</td><td><strong>localization</strong></td><td>Region (<em>location</em>)</td></tr>
+<tr><td>Country (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="city"></a><a href="#city" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>City</h3>
+<table>
+<thead>
+<tr><th>Source (<em>role</em>)</th><th>Relation type</th><th>Target (<em>role</em>)</th></tr>
+</thead>
+<tbody>
+<tr><td>City (<em>localized</em>)</td><td><strong>localization</strong></td><td>Country (<em>location</em>)</td></tr>
+<tr><td>City (<em>relate_from</em>)</td><td><strong>related-to</strong></td><td>All (<em>relate_to</em>)</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="possible-relations-from-a-relation"></a><a href="#possible-relations-from-a-relation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Possible relations from a relation</h2>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 6/30/2019 by Samuel Hassine</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/1.1.2/usage/report-knowledge"><span class="arrow-prev">← </span><span>Add knowledge to a report</span></a><a class="docs-next button" href="/docs/1.1.2/reference/inferences"><span>Inferred relations</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#possible-relations-from-an-entity">Possible relations from an entity</a><ul class="toc-headings"><li><a href="#threat-actor">Threat Actor</a></li><li><a href="#intrusion-set">Intrusion Set</a></li><li><a href="#campaign">Campaign</a></li><li><a href="#incident">Incident</a></li><li><a href="#malware">Malware</a></li><li><a href="#tool">Tool</a></li><li><a href="#vulnerability">Vulnerability</a></li><li><a href="#sector">Sector</a></li><li><a href="#organization">Organization</a></li><li><a href="#person">Person</a></li><li><a href="#region">Region</a></li><li><a href="#country">Country</a></li><li><a href="#city">City</a></li></ul></li><li><a href="#possible-relations-from-a-relation">Possible relations from a relation</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/docs/" class="nav-home"><img src="/docs/img/logo.png" alt="OpenCTI documentation" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/installation/docker">Install using Docker</a><a href="/docs/usage/overview">Usage introduction</a><a href="/docs/development/installation">Development environment</a></div><div><h5>Community</h5><a href="https://demo.opencti.io">Demonstration</a><a href="http://stackoverflow.com/questions/tagged/OpenCTI" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://slack.luatix.org/">Slack</a><a href="https://twitter.com/LuatixHQ" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.luatix.org/en/blog/">Blog</a><a href="https://github.com/OpenCTI-Platform">GitHub</a><a class="github-button" href="https://github.com/OpenCTI-Platform/opencti" data-icon="octicon-star" data-count-href="/OpenCTI-Platform/opencti/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 OpenCTI</section></footer></div></body></html>
