@@ -69,15 +69,15 @@
 </blockquote>
 <p>Here is an example of a simple <code>config.yml</code> file:</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">rabbitmq:</span>
-<span class="hljs-attr">  hostname:</span> <span class="hljs-string">'localhost'</span>
-<span class="hljs-attr">  port:</span> <span class="hljs-number">5672</span>
-<span class="hljs-attr">  username:</span> <span class="hljs-string">'guest'</span>
-<span class="hljs-attr">  password:</span> <span class="hljs-string">'guest'</span>
+  <span class="hljs-attr">hostname:</span> <span class="hljs-string">'localhost'</span>
+  <span class="hljs-attr">port:</span> <span class="hljs-number">5672</span>
+  <span class="hljs-attr">username:</span> <span class="hljs-string">'guest'</span>
+  <span class="hljs-attr">password:</span> <span class="hljs-string">'guest'</span>
 
 <span class="hljs-attr">connector:</span>
-<span class="hljs-attr">  name:</span> <span class="hljs-string">'Connector instance'</span>
-<span class="hljs-attr">  confidence_level:</span> <span class="hljs-number">3</span>
-<span class="hljs-attr">  log_level:</span> <span class="hljs-string">'info'</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">'Connector instance'</span>
+  <span class="hljs-attr">confidence_level:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">log_level:</span> <span class="hljs-string">'info'</span>
 </code></pre>
 <blockquote>
 <p>For environement variables, your connector must respect the standard mapping of configuration, replacing each list level by the char <code>_</code>. For instance, the configuration <code>config['connector']['server']['hostname']</code> can be set as an environement variable named <code>CONNECTOR_SERVER_HOSTNAME</code>.</p>
